@@ -1,0 +1,7 @@
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\bin\Debug\ArrayLearn.exe.config
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\bin\Debug\ArrayLearn.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\bin\Debug\ArrayLearn.pdb
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\obj\Debug\ArrayLearn.csprojAssemblyReference.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\obj\Debug\ArrayLearn.csproj.CoreCompileInputs.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\obj\Debug\ArrayLearn.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\ArrayLearn\obj\Debug\ArrayLearn.pdb
