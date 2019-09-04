@@ -1,0 +1,7 @@
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\bin\Debug\Test1.exe.config
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\bin\Debug\Test1.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\bin\Debug\Test1.pdb
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\obj\Debug\Test.csprojAssemblyReference.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\obj\Debug\Test.csproj.CoreCompileInputs.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\obj\Debug\Test1.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\Test1\obj\Debug\Test1.pdb
