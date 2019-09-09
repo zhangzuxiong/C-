@@ -1,0 +1,7 @@
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\bin\Debug\Queue.exe.config
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\bin\Debug\Queue.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\bin\Debug\Queue.pdb
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\obj\Debug\Queue.csprojAssemblyReference.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\obj\Debug\Queue.csproj.CoreCompileInputs.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\obj\Debug\Queue.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\Queue\obj\Debug\Queue.pdb
