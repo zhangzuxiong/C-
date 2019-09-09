@@ -1,0 +1,7 @@
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\bin\Debug\ObjectLearn.pdb
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\obj\Debug\ObjectLearn.csprojAssemblyReference.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\obj\Debug\ObjectLearn.csproj.CoreCompileInputs.cache
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\obj\Debug\ObjectLearn.pdb
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\bin\Debug\ObjectLearn.exe.config
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\bin\Debug\ObjectLearn.exe
+E:\Visual Studio\WorkSpace\CSharp\learn\ObjectLearn\obj\Debug\ObjectLearn.exe
