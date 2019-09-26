@@ -8,43 +8,40 @@ using System;
 public static class PrefabManagent {
 
     //预置物字典，键为预置物的名字，值为预置物的对象
-    public static Dictionary<string, UnityEngine.Object> prefabDic = new Dictionary<string, UnityEngine.Object>();
+    private static Dictionary<string, UnityEngine.Object> prefabs = new Dictionary<string, UnityEngine.Object>();
 
 
     //属性访问器
-    public static Dictionary<string, UnityEngine.Object> PrefabDic
+    public static Dictionary<string, UnityEngine.Object> Prefabs
     {
         get
         {
-            if (prefabDic==null)
+            if (prefabs == null)
             {
-                prefabDic = new Dictionary<string, UnityEngine.Object>();
+                prefabs = new Dictionary<string, UnityEngine.Object>();
             }
-            return prefabDic;
+            return prefabs;
         }
 
         set
         {
-            prefabDic = value;
+            prefabs = value;
         }
     }
-
-
-    //添加预置物
-    public static void AddPrefab(string name)
-    {
-        prefabDic.Add(name, Resources.Load<UnityEngine.Object>(name));
-    }
-
 
     //获取预置物
     public static UnityEngine.Object GetPrefab(string name)
     {
-        if (prefabDic.ContainsKey(name)==false)
+        if (Prefabs.ContainsKey(name))
         {
-            AddPrefab(name);
+            return Prefabs[name];
         }
-        return prefabDic[name];
+        else
+        {
+            UnityEngine.Object prefab = Resources.Load<UnityEngine.Object>(name);
+            Prefabs.Add(name, prefab);
+            return prefab;
+        }
     }
 }
 
@@ -74,25 +71,24 @@ public class PoolGameObject  {
 
 
     //获取对象池中的对象
-    public GameObject GetGameObject(String name)
+    public GameObject GetGameObject(string name)
     {
-        for (int i = 0; i < poolObjectList.Count; i++)
+        for (int i = 0; i < PoolObjectList.Count; i++)
         {
             //判断容器中是否存在被关闭的对象
-            if (poolObjectList[i].activeSelf == false)
+            if (PoolObjectList[i].activeSelf == false)
             {
-                poolObjectList[i].SetActive(true);
-                return poolObjectList[i];
+                PoolObjectList[i].SetActive(true);
+                return PoolObjectList[i];
             }
         }
 
         //没有创建一个新的对象返回，并加入对象池
-        //GameObject go = Resources.Load<GameObject>(name);
-        GameObject go = GameObject.Instantiate((GameObject)PrefabManagent.GetPrefab(name));
-        poolObjectList.Add(go);//将新创建的对象添加到对象池
+        //GameObject go = (GameObject)PrefabManagent.GetPrefab(name);
+        GameObject go = GameObject.Instantiate( PrefabManagent.GetPrefab(name) as GameObject);
+        PoolObjectList.Add(go);//将新创建的对象添加到对象池
         return go;
     }
-
 }
 
 /// <summary>
@@ -123,16 +119,19 @@ public static class PoolManagent
     //查找容器中是否存指定的对象池
     public static PoolGameObject GetPoolGameObject(string name)
     {
+        Debug.Log(PoolDic.Count);
         //当前键对包含这个名字的对象
-        if (poolDic.ContainsKey(name))
+        if (PoolDic.ContainsKey(name))
         {
-            return poolDic[name];
+            Debug.Log("存在"+PoolDic[name]);
+            return PoolDic[name];
         }
         else
         {
             //不存在当前键的对象池，新建一个对象池加入字典
             PoolGameObject poolGameObject = new PoolGameObject();
-            poolDic.Add(name, poolGameObject);
+            PoolDic.Add(name, poolGameObject);
+            Debug.Log("不存在" + PoolDic[name]);
             return poolGameObject;
         }
     }
@@ -149,6 +148,18 @@ public static class PoolManagent
     public static void Destory(GameObject game)
     {
         game.SetActive(false);
+    }
+
+
+    //清空对象池
+    public static void Clear()
+    {
+        foreach (var item in PoolDic)
+        {
+            item.Value.PoolObjectList.Clear();
+        }
+
+        PoolDic.Clear();
     }
 
 }
