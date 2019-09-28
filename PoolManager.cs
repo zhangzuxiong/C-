@@ -119,11 +119,9 @@ public static class PoolManagent
     //查找容器中是否存指定的对象池
     public static PoolGameObject GetPoolGameObject(string name)
     {
-        Debug.Log(PoolDic.Count);
         //当前键对包含这个名字的对象
         if (PoolDic.ContainsKey(name))
         {
-            Debug.Log("存在"+PoolDic[name]);
             return PoolDic[name];
         }
         else
@@ -131,7 +129,6 @@ public static class PoolManagent
             //不存在当前键的对象池，新建一个对象池加入字典
             PoolGameObject poolGameObject = new PoolGameObject();
             PoolDic.Add(name, poolGameObject);
-            Debug.Log("不存在" + PoolDic[name]);
             return poolGameObject;
         }
     }
