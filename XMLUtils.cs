@@ -18,6 +18,7 @@ public static class XMLUtils
         FileStream fs = null;
         if (File.Exists(path))
         {
+            return;
             fs = new FileStream(path, FileMode.Truncate);
         }
         else
@@ -156,7 +157,18 @@ public static class XMLUtils
         for (int i = 0; i < list.Count; i++)
         {
             XmlElement element = list[i] as XmlElement;
-            if (element.GetAttribute(primaryKey)==value)
+            if (value!=null)
+            {
+                if (element.GetAttribute(primaryKey)==value)
+                {
+                    for (int j = 0; j < keys.Count; j++)
+                    {
+                        res.Add(keys[j], element.GetAttribute(keys[j]));
+                    }
+                    return res;
+                }
+            }
+            else
             {
                 for (int j = 0; j < keys.Count; j++)
                 {
