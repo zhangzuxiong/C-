@@ -15,20 +15,36 @@ public static class XMLUtils
     /// <param name="rootName">头结点的名称，默认为root</param>
     public static void CreateXML(string path,string rootName="root")
     {
-        FileStream fs = null;
-        if (File.Exists(path))
+        char division = '/';//路径分割符
+        for (int i = 0; i < path.Length; i++)
         {
-            return;
-            fs = new FileStream(path, FileMode.Truncate);
+            if (path[i]==division)
+            {
+                break;
+            }
+            if (i==path.Length-1)
+            {
+                division = '\\';
+            }
         }
-        else
+        string directory = path.Substring(0, path.LastIndexOf(division));
+
+        if (!Directory.Exists(directory))
         {
-            fs = new FileStream(path, FileMode.OpenOrCreate);
+            Directory.CreateDirectory(directory);
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlElement root = xmlDoc.CreateElement(rootName);
+            xmlDoc.AppendChild(root);
+            xmlDoc.Save(path);
         }
-        StreamWriter sw = new StreamWriter(fs);
-        sw.WriteLine("<"+rootName+">\n</"+rootName+">");
-        sw.Close();
-        fs.Close();
+        if (!File.Exists(path))
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlElement root = xmlDoc.CreateElement(rootName);
+            xmlDoc.AppendChild(root);
+            xmlDoc.Save(path);
+        }
+
     }
 
 
@@ -39,7 +55,7 @@ public static class XMLUtils
     /// <param name="data">存储数据的字典</param>
     /// <param name="nodeName">添加的新节点的名称</param>
     /// <param name="rootName">xml文档头结点的名称，默认为root</param>
-   public static void InsertOne(string path,Dictionary<string,System.Object> data,string nodeName,string rootName="root")
+   public static void InsertOne(string path,Dictionary<string,System.Object> data,string nodeName = "node",string rootName="root")
     {
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(path);
@@ -62,7 +78,7 @@ public static class XMLUtils
     /// <param name="data">保存数据的列表</param>
     /// <param name="nodeName">新节点的名称</param>
     /// <param name="rootName">头结点的名称，默认root</param>
-    public static void InsertMany(string path,List<Dictionary<string,System.Object>> data,string nodeName,string rootName = "root")
+    public static void InsertMany(string path,List<Dictionary<string,System.Object>> data,string nodeName = "node",string rootName = "root")
     {
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(path);
@@ -87,7 +103,7 @@ public static class XMLUtils
     /// <param name="primaryKey">更新数据的主键</param>
     /// <param name="nodeName">更新的节点名称</param>
     /// <param name="rootName">xml头结点，默认root</param>
-    public static void UpdateOne(string path, Dictionary<string, System.Object> data,string primaryKey ,string nodeName, string rootName = "root")
+    public static void UpdateOne(string path, Dictionary<string, System.Object> data,string primaryKey ,string nodeName = "node", string rootName = "root")
     {
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(path);
@@ -119,7 +135,7 @@ public static class XMLUtils
     /// <param name="value">主键对应的值</param>
     /// <param name="nodeName">删除节点的名称</param>
     /// <param name="rootName">xml文档头结点，默认root</param>
-    public static void DeleteOne(string path, string primaryKey,string value, string nodeName, string rootName = "root")
+    public static void DeleteOne(string path, string primaryKey,string value, string nodeName = "node", string rootName = "root")
     {
         XmlDocument xmlDoc = new XmlDocument();
         xmlDoc.Load(path);
@@ -147,7 +163,7 @@ public static class XMLUtils
     /// <param name="nodeName">查找的节点名称</param>
     /// <param name="rootName">xml文档的头结点，默认root</param>
     /// <returns>如果找到了返回找到的结果，否则返回null</returns>
-    public static Dictionary<string, System.Object> SelectOne(string path,List<string> keys, string primaryKey,string value,string nodeName,string rootName = "root")
+    public static Dictionary<string, System.Object> SelectOne(string path,List<string> keys, string primaryKey,string value,string nodeName = "node",string rootName = "root")
     {
         Dictionary<string, System.Object> res = new Dictionary<string, object>();
         XmlDocument xmlDoc = new XmlDocument();
@@ -176,6 +192,34 @@ public static class XMLUtils
                 }
                 return res;
             }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 查找一条数据
+    /// </summary>
+    /// <param name="path">xml文档的地址</param>
+    /// <param name="keys">查找的关键字</param>
+    /// <param name="key">查找的主键</param>
+    /// <param name="nodeName">查找的节点名称</param>
+    /// <param name="rootName">xml文档的头结点，默认root</param>
+    /// <returns>如果找到了返回找到的结果，否则返回null</returns>
+    public static Dictionary<string, System.Object> SelectOneByKey(string path, List<string> keys, string Key, string nodeName = "node", string rootName = "root")
+    {
+        Dictionary<string, System.Object> res = new Dictionary<string, object>();
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load(path);
+        XmlNode root = xmlDoc.SelectSingleNode(rootName);
+        XmlNodeList list = root.SelectNodes(nodeName);
+        for (int i = 0; i < list.Count; i++)
+        {
+            XmlElement element = list[i] as XmlElement;
+            for (int j = 0; j < keys.Count; j++)
+            {
+                res.Add(keys[j], element.GetAttribute(keys[j]));
+            }
+            return res;
         }
         return null;
     }
